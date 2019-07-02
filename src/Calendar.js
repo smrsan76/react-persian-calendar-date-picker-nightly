@@ -23,6 +23,7 @@ const Calendar = ({
   onChange,
   onDisabledDayError,
   isDayRange,
+  isMultipleDays,
   calendarClassName,
   calendarTodayClassName,
   calendarSelectedDayClassName,
@@ -103,17 +104,17 @@ const Calendar = ({
   };
 
   const handleDayClick = day => {
-    if (selectedDays.length) {
-      const isSelectedBefore = selectedDays.some(sd => isSameDay(sd, day));
-      if (isSelectedBefore) {
-        onChange(selectedDays.filter(sd => !isSameDay(sd, day)));
-      } else {
-        onChange([...selectedDays, day]);
-      }
-    } else {
+    if (!isMultipleDays) {
       const newDayValue = isDayRange ? getDayRangeValue(day) : day;
       onChange(newDayValue);
+      return;
     }
+    const isSelectedBefore = selectedDays.some(sd => isSameDay(sd, day));
+    if (isSelectedBefore) {
+      onChange(selectedDays.filter(sd => !isSameDay(sd, day)));
+      return;
+    }
+    onChange([...selectedDays, day]);
   };
 
   const getDayClassNames = dayItem => {
@@ -122,8 +123,10 @@ const Calendar = ({
     if (selectedDay) {
       isSelected = isSameDay(dayItem, selectedDay);
     } else if (selectedDays.length) {
-      selectedDays.forEach(sd => {
-        if (isSameDay(dayItem, sd)) isSelected = true;
+      selectedDays.some(sd => {
+        if (!isSameDay(dayItem, sd)) return false;
+        isSelected = true;
+        return true;
       });
     }
     const { from: startingDay, to: endingDay } = selectedDayRange;
@@ -295,6 +298,8 @@ const dayShape = {
 
 Calendar.defaultProps = {
   onChange: () => null,
+  isDayRange: false,
+  isMultipleDays: false,
   onDisabledDayError: () => null,
   selectedDay: null,
   selectedDayRange: {
@@ -314,6 +319,8 @@ Calendar.defaultProps = {
 
 Calendar.propTypes = {
   onChange: PropTypes.func,
+  isDayRange: PropTypes.bool,
+  isMultipleDays: PropTypes.bool,
   onDisabledDayError: PropTypes.func,
   selectedDay: PropTypes.shape(dayShape),
   selectedDayRange: PropTypes.shape({
