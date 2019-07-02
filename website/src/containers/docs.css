@@ -1,0 +1,135 @@
+.Docs {
+  display: flex;
+  padding: 4rem 5rem;
+}
+
+.Docs__content {
+  margin-left: 45rem;
+  min-height: calc(100vh - 23rem);
+  width: 100%;
+}
+
+.Docs__content > * {
+  max-width: 70%;
+}
+
+.Docs__title {
+  font-size: 2.7rem;
+  margin-bottom: 6rem;
+}
+
+.Docs__titleSecondary {
+  font-size: 2rem;
+  margin-top: 2rem;
+  margin-bottom: 1.5rem;
+}
+
+.Docs__paragraph {
+  font-size: 1.6rem;
+  line-height: 2;
+}
+
+.Docs__list {
+  margin: 2rem 0;
+  font-size: 1.6rem;
+}
+
+.Docs__list li:not(:last-child) {
+  margin-bottom: 1rem;
+}
+
+.Docs__paragraph.-marginTop { margin-top: 1.5rem; }
+.Docs__paragraph.-marginBottom { margin-bottom: 1.5rem; }
+
+.Docs__link {
+  color: #4589d6;
+  transition: 0.3s;
+  font-weight: 400;
+}
+
+.Docs__link:hover { color: #2b507a; }
+
+.Docs__sampleContainer {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  max-width: 90%;
+}
+
+.Docs__sampleContainer + .Docs__paragraph {
+  max-width: 55%;
+}
+
+@media (max-width: 1565px) {
+  .Docs__content > *:not(.Docs__sampleContainer) {
+    max-width: 80%;
+  }
+
+  .Docs__sampleContainer + .Docs__paragraph {
+    max-width: 55%;
+  }
+
+  .Docs__content {
+    margin-left: 38rem;
+  }
+}
+
+@media (max-width: 1440px) {
+  .Docs__content {
+    margin-left: 32rem;
+  }
+}
+
+@media (max-width: 1290px) {
+  .Docs__content {
+    margin-left: 22rem;
+  }
+}
+
+@media (max-width: 1199.98px) {
+  .Docs {
+    padding: 6rem 5rem;
+  }
+
+  .Docs__content > *:not(.Docs__sampleContainer) {
+    max-width: 90%;
+  }
+
+  .Docs__sampleContainer + .Docs__paragraph {
+    max-width: 55%;
+  }
+
+  .Docs__sampleContainer .persianFontWrapper {
+    margin-left: 6rem;
+  }
+}
+
+@media (max-width: 1150px) {
+  .Docs__sampleContainer {
+    padding-top: 2rem;
+    flex-direction: column-reverse;
+  }
+
+  .Docs__sampleContainer .persianFontWrapper {
+    margin-left: 0;
+  }
+
+  .Docs__sampleContainer .persianFontWrapper {
+    margin-bottom: 3rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .Docs {
+    padding: 5rem 9rem;
+  }
+
+  .Docs__sampleContainer {
+    align-items: center;
+  }
+
+  .Docs__content {
+    margin-left: 0;
+    padding: 5rem 0;
+  }
+}

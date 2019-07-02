@@ -1,0 +1,188 @@
+.hero {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  padding: 9rem 2rem;
+  position: relative;
+}
+
+.hero__logo {
+  width: 20rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.15);
+  z-index: 2;
+}
+
+.hero__logoBackground {
+  position: absolute;
+  left: calc(50% - 13.5rem);
+  transform: translateX(-50%);
+  top: 4.5rem;
+  width: 19rem;
+  z-index: 1;
+}
+
+.hero__title {
+  font-weight: 300;
+  font-size: 3.5rem;
+  color: #C6C6C6;
+  margin-top: 5rem;
+}
+
+.hero__titleSecondary{
+  font-size: 2.2rem;
+  font-weight: 300;
+  margin-top: 3rem;
+}
+
+.hero__actionContainer {
+  display: flex;
+  margin-top: 7.5rem
+}
+
+.hero__buttonIcon {
+  width: 2.8rem;
+  margin-right: 1.5rem;
+}
+
+.hero__actionButton {
+  min-width: 19rem;
+  min-height: 5rem;
+  font-weight: 400;
+  text-transform: uppercase;
+  font-size: 1.6rem;
+  border-radius: 50rem;
+  display: flex;
+  align-items: center;
+  transform: translateY(0);
+  transition: 0.2s;
+}
+
+.hero__actionButton:active { transform: translateY(1.5px); }
+.hero__actionButton.-social:active { box-shadow: 0 1rem 1.5rem rgba(0, 0, 0, 0.07); }
+.hero__actionButton.-primary:active { box-shadow: 0 1rem 1.5rem rgba(14, 202, 45, 0.20); }
+
+.hero__actionButton:not(:last-child) {
+  margin-right: 5rem;
+}
+
+.hero__actionButton.-social {
+  background: #F6F6F6;
+  color: #7F8C8D;
+  padding: 1.2rem 4rem;
+  box-shadow: 0 1rem 2rem rgba(0, 0, 0, 0.1);
+}
+
+.hero__actionButton.-primary {
+  justify-content: center;
+  background: var(--color-primary);
+  color: var(--color-white);
+  padding: 1.2rem 1.5rem;
+  box-shadow: 0 1rem 2rem rgba(14, 202, 45, 0.35);
+}
+
+.exampleList {
+  display: flex;
+  flex-wrap: wrap;
+  margin-top: 2rem;
+  margin-bottom: 8rem;
+  padding: 0 15rem;
+}
+
+.exampleItem {
+  flex-basis: calc(50% - 2rem);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.exampleItem__subContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.exampleItem:nth-last-child(-n + 2) {
+  margin-top: 10rem;
+}
+
+.exampleItem:nth-child(2n) {
+  margin-left: 4rem;
+}
+
+.exampleItem__title {
+  font-size: 2.1rem;
+  font-weight: 400;
+  display: block;
+  margin-bottom: 2rem;
+}
+
+.exampleItem__description {
+  font-size: 1.6rem;
+  margin-bottom: 3rem;
+}
+
+.exampleItem .exampleItem__customTodayCalendar::after {
+  display: none !important;
+}
+
+.exampleItem .exampleItem__customTodayCalendar {
+  background: rgba(0, 0, 0, 0.1);
+  color: #000;
+}
+
+.exampleItem .exampleItem__customRangeCalendar {
+  border-radius: 50%;
+}
+
+@media (max-width: 991.98px) {
+  .exampleList {
+    flex-direction: column;
+    padding: 0 2rem;
+  }
+
+  .exampleItem:not(:nth-child(1)) {
+    margin-top: 10rem;
+    margin-left: 0;
+  }
+
+  .exampleItem__subContainer {
+    align-items: center;
+  }
+
+  .hero__actionButton {
+    min-width: 17rem;
+    min-height: 4.5rem;
+    max-height: 4.5rem;
+  }
+}
+
+@media (max-width: 767.98px) {
+  .hero {
+    padding-top: 15rem;
+  }
+
+  .hero__logoBackground {
+    top: 10.5rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero__logo {
+    width: 15rem;
+  }
+
+  .hero__logoBackground {
+    width: 14rem;
+    left: calc(50% - 10rem);
+  }
+
+  .hero__actionContainer {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .hero__actionButton:not(:last-child) {
+    margin: 0;
+    margin-bottom: 2rem;
+  }
+}
