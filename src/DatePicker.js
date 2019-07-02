@@ -9,6 +9,7 @@ let mousePosition;
 
 const DatePicker = ({
   isDayRange,
+  isMultipleDays,
   selectedDay,
   onChange,
   formatInputText,
@@ -101,6 +102,7 @@ const DatePicker = ({
             selectedDayRange={selectedDayRange}
             onDayRangeSelect={handleDayRangeSelect}
             isDayRange={isDayRange}
+            isMultipleDays={isMultipleDays}
             calendarClassName={calendarClassName}
             calendarTodayClassName={calendarTodayClassName}
             calendarSelectedDayClassName={calendarSelectedDayClassName}
@@ -125,6 +127,7 @@ const DatePicker = ({
         inputClassName={inputClassName}
         renderInput={renderInput}
         isDayRange={isDayRange}
+        isMultipleDays={isMultipleDays}
         selectedDays={selectedDays}
       />
     </div>
