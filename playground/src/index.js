@@ -6,8 +6,11 @@ import { Calendar } from '../../src';
 import * as serviceWorker from './serviceWorker';
 
 const App = () => {
-  const [selectedDays, setValue] = useState([{ day: 11, month: 4, year: 1398 }, { day: 15, month: 4, year: 1398 }]);
-  return <Calendar selectedDays={selectedDays} onChange={setValue} isDayRange />;
+  const [selectedDays, setValue] = useState([
+    { day: 11, month: 4, year: 1398 },
+    { day: 15, month: 4, year: 1398 },
+  ]);
+  return <Calendar selectedDays={selectedDays} onChange={setValue} isMultipleDays />;
 };
 
 ReactDOM.render(<App />, document.getElementById('root'));
