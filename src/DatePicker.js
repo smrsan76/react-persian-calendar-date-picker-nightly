@@ -29,6 +29,7 @@ const DatePicker = ({
   colorPrimary,
   colorPrimaryLight,
   selectedDays,
+  dayBtnProps,
 }) => {
   const calendarContainer = useRef(null);
   const dateInput = useRef(null);
@@ -113,6 +114,8 @@ const DatePicker = ({
             colorPrimary={colorPrimary}
             colorPrimaryLight={colorPrimaryLight}
             onDisabledDayError={onDisabledDayError}
+            selectedDays={selectedDays}
+            dayBtnProps={dayBtnProps}
           />
         </div>
       )}

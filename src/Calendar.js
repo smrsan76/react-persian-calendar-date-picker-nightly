@@ -34,6 +34,7 @@ const Calendar = ({
   colorPrimary,
   colorPrimaryLight,
   selectedDays,
+  dayBtnProps,
 }) => {
   const monthYearTextWrapper = useRef(null);
   const calendarSectionWrapper = useRef(null);
@@ -182,6 +183,7 @@ const Calendar = ({
           }}
           disabled={!isStandard}
           type="button"
+          {...dayBtnProps}
         >
           {toPersianNumber(day)}
         </button>
