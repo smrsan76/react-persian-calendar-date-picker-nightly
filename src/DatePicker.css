@@ -87,7 +87,8 @@
   flex: 1;
   flex-direction: column;
   padding: 0 1em;
-  width: 32em;
+  min-width: 31em;
+  max-width: 31em;
   overflow: hidden;
 }
 
@@ -178,6 +179,7 @@
   font-size: 1.2em;
   margin-bottom: 1.60em;
   padding: 0 2em;
+  width: 25em;
 }
 
 .Calendar__weekDay  {
@@ -204,6 +206,7 @@
   transform: translateZ(0);
   backface-visibility: hidden;
   transition: var(--animation-duration);
+  width: 30em;
 }
 
 .Calendar__section.-hiddenPrevious {
