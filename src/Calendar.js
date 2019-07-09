@@ -159,15 +159,12 @@ const Calendar = ({
 
     // all months will have an additional 7 days(week) for rendering purpose
     const appendingBlankDays = createUniqueRange(7 - getMonthFirstWeekday(date), 'ending-blank');
-    const standardDays = createUniqueRange(getMonthLength(date)).map(
-      day => ({
-        ...day,
-        isStandard: true,
-        month: date.month,
-        year: date.year,
-      }),
-      'standard',
-    );
+    const standardDays = createUniqueRange(getMonthLength(date), 'standard').map(day => ({
+      ...day,
+      isStandard: true,
+      month: date.month,
+      year: date.year,
+    }));
     const allDays = prependingBlankDays.concat(standardDays, appendingBlankDays);
     return allDays;
   };
@@ -317,7 +314,6 @@ const Calendar = ({
     let currentMonth = shallowCloneObject(activeDate);
     let monthsStart = shallowCloneObject(currentMonth);
     let monthsEnd = shallowCloneObject(currentMonth);
-    let monthKey = 0;
     const monthsToRender = [];
 
     if (showMultipleMonths) {
@@ -343,9 +339,9 @@ const Calendar = ({
     }
 
     while (!isBeforeDate(monthsEnd, currentMonth)) {
+      const monthKey = `${currentMonth.year}_${currentMonth.month}`;
       monthsToRender.push(renderMonth(currentMonth, monthKey));
       currentMonth = getDateAccordingToMonth(currentMonth, 'NEXT');
-      monthKey += 1;
     }
 
     return monthsToRender;
