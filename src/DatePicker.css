@@ -42,12 +42,21 @@
   border-radius: 1em;
   position: relative;
   user-select: none;
-  padding-top: 3.2em;
+  padding: 3.2em 0;
   display: flex;
-  flex-direction: column;
-  width: 32em;
-  max-width: 90vw;
-  min-height: 35.7em;
+  flex-direction: row;
+  flex-wrap: wrap;
+  justify-content: space-evenly;
+  max-width: 96em; /* 32em x 3 */
+  min-height: 33.7em;
+}
+
+.Calendar.-no-nav {
+  min-height: auto;
+}
+
+.Calendar.-no-nav .Calendar__section {
+  position: relative;
 }
 
 .Calendar button {
@@ -72,11 +81,21 @@
   border-color: transparent transparent #fff transparent;
 }
 
+.Calendar__month {
+  display: flex;
+  position: relative;
+  flex: 1;
+  flex-direction: column;
+  padding: 0 1em;
+  width: 32em;
+  overflow: hidden;
+}
+
 .Calendar__header {
   display: flex;
   color: var(--cl-color-black);
   margin-bottom: 2em;
-  padding: 0 2.9em;
+  padding: 0 2em;
   align-items: center;
 }
 
@@ -157,8 +176,8 @@
   justify-content: space-between;
   color: var(--cl-color-disabled);
   font-size: 1.2em;
-  margin-bottom: 2.15em;
-  padding: 0 2.6em;
+  margin-bottom: 1.60em;
+  padding: 0 2em;
 }
 
 .Calendar__weekDay  {
@@ -170,12 +189,11 @@
 .Calendar__sectionWrapper {
   position: relative;
   flex: 1;
-  overflow: hidden;
 }
 
 .Calendar__section {
   display: flex;
-  padding: 0 3.2em;
+  padding: 0 2.4em;
   flex-wrap: wrap;
   position: absolute;
   color: var(--cl-color-black);
@@ -190,13 +208,13 @@
 
 .Calendar__section.-hiddenPrevious {
   opacity: 0.5;
-  transform: translateX(90%);
+  transform: translateX(100%);
 
 }
 
 .Calendar__section.-hiddenNext {
   opacity: 0.5;
-  transform: translateX(-90%);
+  transform: translateX(-100%);
   padding: 1px solid #ddd;
 }
 

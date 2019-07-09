@@ -35,6 +35,11 @@ const Calendar = ({
   colorPrimaryLight,
   selectedDays,
   dayBtnProps,
+  showMonthArrowBtns,
+  showMultipleMonths,
+  displayMonthsFrom,
+  displayMonthsTo,
+  displayYear,
 }) => {
   const monthYearTextWrapper = useRef(null);
   const calendarSectionWrapper = useRef(null);
@@ -43,6 +48,7 @@ const Calendar = ({
     cycleCount: 1,
     activeDate: null,
   });
+  const shouldPrepareAnimation = showMonthArrowBtns && !showMultipleMonths;
 
   const today = getToday();
   let activeDate = mainState.activeDate ? shallowCloneObject(mainState.activeDate) : null;
@@ -68,7 +74,8 @@ const Calendar = ({
   };
 
   const getMonthYearText = isNewMonth => {
-    const date = getDate(!isNewMonth);
+    const date =
+      typeof isNewMonth === 'boolean' ? getDate(!isNewMonth) : shallowCloneObject(isNewMonth);
     const year = toPersianNumber(date.year).slice(-2);
     const month = getMonthName(date.month);
     return `${month} ${year}`;
@@ -146,7 +153,8 @@ const Calendar = ({
   };
 
   const getViewMonthDays = isNewMonth => {
-    const date = getDate(!isNewMonth);
+    const date =
+      typeof isNewMonth === 'boolean' ? getDate(!isNewMonth) : shallowCloneObject(isNewMonth);
     const prependingBlankDays = createUniqueRange(getMonthFirstWeekday(date), 'starting-blank');
 
     // all months will have an additional 7 days(week) for rendering purpose
@@ -231,12 +239,10 @@ const Calendar = ({
 
   // determine the hidden animated item
   const isCycleCountEven = mainState.cycleCount % 2 === 0;
-  return (
-    <div
-      className={`Calendar ${calendarClassName}`}
-      style={{ '--cl-color-primary': colorPrimary, '--cl-color-primary-light': colorPrimaryLight }}
-    >
-      <div className="Calendar__header">
+
+  const renderMonthHeader = month => (
+    <div className="Calendar__header">
+      {shouldPrepareAnimation && (
         <button
           className="Calendar__monthArrowWrapper -right"
           onClick={() => handleMonthClick('PREVIOUS')}
@@ -247,15 +253,19 @@ const Calendar = ({
             &nbsp;
           </span>
         </button>
-        <div className="Calendar__monthYearContainer" ref={monthYearTextWrapper}>
-          &nbsp;
-          <span onAnimationEnd={handleAnimationEnd} className="Calendar__monthYear -shown">
-            {getMonthYearText(isCycleCountEven)}
-          </span>
+      )}
+      <div className="Calendar__monthYearContainer" ref={monthYearTextWrapper}>
+        &nbsp;
+        <span onAnimationEnd={handleAnimationEnd} className="Calendar__monthYear -shown">
+          {getMonthYearText(showMultipleMonths ? month : isCycleCountEven)}
+        </span>
+        {shouldPrepareAnimation && (
           <span onAnimationEnd={handleAnimationEnd} className="Calendar__monthYear -hiddenNext">
             {getMonthYearText(!isCycleCountEven)}
           </span>
-        </div>
+        )}
+      </div>
+      {shouldPrepareAnimation && (
         <button
           className="Calendar__monthArrowWrapper -left"
           onClick={() => handleMonthClick('NEXT')}
@@ -266,18 +276,22 @@ const Calendar = ({
             &nbsp;
           </span>
         </button>
+      )}
+    </div>
+  );
+
+  const renderMonthSection = month => (
+    <div ref={calendarSectionWrapper} className="Calendar__sectionWrapper">
+      <div
+        onAnimationEnd={e => {
+          handleAnimationEnd(e);
+          updateDate();
+        }}
+        className="Calendar__section -shown"
+      >
+        {renderMonthDays(showMultipleMonths ? month : isCycleCountEven)}
       </div>
-      <div className="Calendar__weekDays">{renderWeekDays()}</div>
-      <div ref={calendarSectionWrapper} className="Calendar__sectionWrapper">
-        <div
-          onAnimationEnd={e => {
-            handleAnimationEnd(e);
-            updateDate();
-          }}
-          className="Calendar__section -shown"
-        >
-          {renderMonthDays(isCycleCountEven)}
-        </div>
+      {shouldPrepareAnimation && (
         <div
           onAnimationEnd={e => {
             handleAnimationEnd(e);
@@ -287,7 +301,62 @@ const Calendar = ({
         >
           {renderMonthDays(!isCycleCountEven)}
         </div>
-      </div>
+      )}
+    </div>
+  );
+
+  const renderMonth = (month, key) => (
+    <div key={key} className="Calendar__month">
+      {renderMonthHeader(month)}
+      <div className="Calendar__weekDays">{renderWeekDays()}</div>
+      {renderMonthSection(month)}
+    </div>
+  );
+
+  const renderMonths = () => {
+    let currentMonth = shallowCloneObject(activeDate);
+    let monthsStart = shallowCloneObject(currentMonth);
+    let monthsEnd = shallowCloneObject(currentMonth);
+    let monthKey = 0;
+    const monthsToRender = [];
+
+    if (showMultipleMonths) {
+      if (displayYear) {
+        const year = typeof displayYear === 'boolean' ? activeDate.year : displayYear;
+        monthsStart = { year, month: 1 };
+        monthsEnd = { year, month: 12 };
+      } else if (displayMonthsFrom && displayMonthsTo) {
+        monthsStart = shallowCloneObject(displayMonthsFrom);
+        monthsEnd = shallowCloneObject(displayMonthsTo);
+      }
+    }
+
+    monthsStart.day = 1;
+    monthsEnd.day = 1;
+
+    if (isBeforeDate(monthsEnd, monthsStart)) {
+      currentMonth = monthsEnd;
+      monthsEnd = monthsStart;
+      monthsStart = shallowCloneObject(currentMonth);
+    } else {
+      currentMonth = shallowCloneObject(monthsStart);
+    }
+
+    while (!isBeforeDate(monthsEnd, currentMonth)) {
+      monthsToRender.push(renderMonth(currentMonth, monthKey));
+      currentMonth = getDateAccordingToMonth(currentMonth, 'NEXT');
+      monthKey += 1;
+    }
+
+    return monthsToRender;
+  };
+
+  return (
+    <div
+      className={`Calendar ${calendarClassName} ${!shouldPrepareAnimation && '-no-nav'}`}
+      style={{ '--cl-color-primary': colorPrimary, '--cl-color-primary-light': colorPrimaryLight }}
+    >
+      {renderMonths()}
     </div>
   );
 };
@@ -296,6 +365,11 @@ const dayShape = {
   year: PropTypes.number.isRequired,
   month: PropTypes.number.isRequired,
   day: PropTypes.number.isRequired,
+};
+
+const monthShape = {
+  year: PropTypes.number.isRequired,
+  month: PropTypes.number.isRequired,
 };
 
 Calendar.defaultProps = {
@@ -317,6 +391,11 @@ Calendar.defaultProps = {
   calendarRangeStartClassName: '',
   calendarRangeBetweenClassName: '',
   calendarRangeEndClassName: '',
+  showMonthArrowBtns: true,
+  showMultipleMonths: false,
+  displayMonthsFrom: null,
+  displayMonthsTo: null,
+  displayYear: null,
 };
 
 Calendar.propTypes = {
@@ -338,6 +417,11 @@ Calendar.propTypes = {
   calendarRangeEndClassName: PropTypes.string,
   colorPrimary: PropTypes.string,
   colorPrimaryLight: PropTypes.string,
+  showMonthArrowBtns: PropTypes.bool,
+  showMultipleMonths: PropTypes.bool,
+  displayMonthsFrom: PropTypes.shape(monthShape),
+  displayMonthsTo: PropTypes.shape(monthShape),
+  displayYear: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
 };
 
 export { Calendar };
