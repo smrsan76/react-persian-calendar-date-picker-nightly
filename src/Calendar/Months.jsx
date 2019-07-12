@@ -17,9 +17,10 @@ const Months = ({
   ...otherProps
 }) => {
   const [mainState, setMainState] = useState({ months: [] });
+  const today = getToday();
 
   const updateMonths = () => {
-    let currentMonth = (showMultipleMonths && displayMonthsFrom) || getToday();
+    let currentMonth = today;
     let monthsStart = shallowCloneObject(currentMonth);
     let monthsEnd = shallowCloneObject(currentMonth);
     const months = [];
@@ -72,8 +73,8 @@ const Months = ({
     if (showMultipleMonths !== prevShowMultipleMonths) return true;
     if (showMultipleMonths) {
       if (displayYear !== prevDisplayYear) return true;
-      if (!isSameMonth(displayMonthsFrom, prevDisplayMonthsFrom)) return true;
-      if (!isSameMonth(displayMonthsTo, prevDisplayMonthsTo)) return true;
+      if (displayMonthsFrom && !isSameMonth(displayMonthsFrom, prevDisplayMonthsFrom)) return true;
+      if (displayMonthsTo && !isSameMonth(displayMonthsTo, prevDisplayMonthsTo)) return true;
     }
     return false;
   };
