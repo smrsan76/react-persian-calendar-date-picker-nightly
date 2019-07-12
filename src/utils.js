@@ -85,6 +85,11 @@ const isSameDay = (day1, day2) => {
   return day1.day === day2.day && day1.month === day2.month && day1.year === day2.year;
 };
 
+const isSameMonth = (month1, month2) => {
+  if (!month1 || !month2) return false;
+  return month1.month === month2.month && month1.year === month2.year;
+};
+
 const toExtendedDay = date => [date.year, date.month, date.day];
 
 const toNativeDate = date => {
@@ -122,6 +127,7 @@ export {
   getMonthFirstWeekday,
   getDateAccordingToMonth,
   isSameDay,
+  isSameMonth,
   checkDayInDayRange,
   isBeforeDate,
   putZero,
