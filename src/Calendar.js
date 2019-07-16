@@ -26,6 +26,8 @@ const Calendar = ({
   displayMonthsFrom,
   displayMonthsTo,
   displayYear,
+  minDate,
+  maxDate,
 }) => {
   const shouldPrepareAnimation = showMonthArrowBtns && !showMultipleMonths;
 
@@ -55,6 +57,8 @@ const Calendar = ({
         displayMonthsTo={displayMonthsTo}
         displayYear={displayYear}
         shouldPrepareAnimation={shouldPrepareAnimation}
+        minDate={minDate}
+        maxDate={maxDate}
       />
     </div>
   );
@@ -95,6 +99,8 @@ Calendar.defaultProps = {
   displayMonthsFrom: null,
   displayMonthsTo: null,
   displayYear: null,
+  minDate: null,
+  maxDate: null,
 };
 
 Calendar.propTypes = {
@@ -121,6 +127,8 @@ Calendar.propTypes = {
   displayMonthsFrom: PropTypes.shape(monthShape),
   displayMonthsTo: PropTypes.shape(monthShape),
   displayYear: PropTypes.oneOfType([PropTypes.number, PropTypes.bool]),
+  minDate: PropTypes.shape(dayShape),
+  maxDate: PropTypes.shape(dayShape),
 };
 
 export { Calendar };

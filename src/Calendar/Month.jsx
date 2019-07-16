@@ -34,6 +34,8 @@ const Month = ({
   showMultipleMonths,
   shouldPrepareAnimation,
   monthDate,
+  minDate,
+  maxDate,
 }) => {
   const monthYearTextWrapper = useRef(null);
   const calendarSectionWrapper = useRef(null);
@@ -247,8 +249,16 @@ const Month = ({
     const allDays = getViewMonthDays(isNewMonth);
     return allDays.map(({ id, value: day, month, year, isStandard }) => {
       const dayItem = { day, month, year };
-      const isDisabled = disabledDays.some(disabledDay => isSameDay(dayItem, disabledDay));
-      const additionalClass = getDayClassNames({ ...dayItem, isStandard, isDisabled });
+      const isOneOfDisabledDays = disabledDays.some(disabledDay => isSameDay(dayItem, disabledDay));
+      const isBeforeMinDate = isBeforeDate(dayItem, minDate);
+      const isAfterMaxDate = isBeforeDate(maxDate, dayItem);
+      const isStandardAndOverflowedDate = isStandard && (isBeforeMinDate || isAfterMaxDate);
+      const isDisabled = isOneOfDisabledDays || isStandardAndOverflowedDate;
+      const additionalClass = getDayClassNames({
+        ...dayItem,
+        isStandard,
+        isDisabled,
+      });
       return (
         <button
           key={id}

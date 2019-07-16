@@ -19,6 +19,9 @@ const App = () => {
 
   const displayMonthsFrom = { year: 1398, month: 1 };
 
+  const minDate = { year: 1398, month: 5, day: 1 };
+  const maxDate = { year: 1398, month: 5, day: 31 };
+
   return (
     <>
       <label htmlFor="num">
@@ -41,6 +44,8 @@ const App = () => {
         displayMonthsTo={{ year: 1398, month: numOfMonths }}
         selectedDays={selectedDays}
         onChange={setValue}
+        minDate={minDate}
+        maxDate={maxDate}
       />
     </>
   );
