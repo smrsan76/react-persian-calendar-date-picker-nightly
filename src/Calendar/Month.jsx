@@ -50,8 +50,9 @@ const Month = ({
 
   const setActiveDate = () => {
     if (selectedDay) activeDate = shallowCloneObject(selectedDay);
-    else if (selectedDays.length) activeDate = shallowCloneObject(selectedDays[0]);
-    else if (selectedDayRange.from) activeDate = shallowCloneObject(selectedDayRange.from);
+    else if (selectedDays && selectedDays.length) activeDate = shallowCloneObject(selectedDays[0]);
+    else if (selectedDayRange && selectedDayRange.from)
+      activeDate = shallowCloneObject(selectedDayRange.from);
     else activeDate = shallowCloneObject(today);
   };
 
