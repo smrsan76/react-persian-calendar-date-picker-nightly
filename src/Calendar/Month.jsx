@@ -111,7 +111,7 @@ const Month = ({
     let isSelected = false;
     if (selectedDay) {
       isSelected = isSameDay(dayItem, selectedDay);
-    } else if (selectedDays.length) {
+    } else if (selectedDays && selectedDays.length) {
       selectedDays.some(sd => {
         if (!isSameDay(dayItem, sd)) return false;
         isSelected = true;
