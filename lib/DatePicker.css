@@ -15,7 +15,9 @@
   font-size: 12px;
 }
 
-.DatePicker__input::placeholder { color: #979797; }
+.DatePicker__input::placeholder {
+  color: #979797;
+}
 
 .DatePicker__calendarContainer {
   position: absolute;
@@ -24,7 +26,8 @@
   transform: translateX(-50%);
 }
 
-.Calendar, .Calendar * {
+.Calendar,
+.Calendar * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
@@ -48,7 +51,7 @@
   flex-wrap: wrap;
   justify-content: space-evenly;
   max-width: 96em; /* 32em x 3 */
-  min-height: 33.7em;
+  min-height: 34.7em;
 }
 
 .Calendar.-no-nav {
@@ -68,7 +71,7 @@
 }
 
 .Calendar::after {
-  content: "";
+  content: '';
   position: absolute;
   width: 0;
   height: 0;
@@ -109,10 +112,16 @@
   z-index: 1;
 }
 
-.Calendar__monthArrowWrapper.-left { transform: rotate(-90deg); }
-.Calendar__monthArrowWrapper.-right { transform: rotate(90deg); }
+.Calendar__monthArrowWrapper.-left {
+  transform: rotate(-90deg);
+}
+.Calendar__monthArrowWrapper.-right {
+  transform: rotate(90deg);
+}
 
-.Calendar__monthArrowWrapper:active .Calendar__monthArrow { transform: scale(0.7); }
+.Calendar__monthArrowWrapper:active .Calendar__monthArrow {
+  transform: scale(0.7);
+}
 
 .Calendar__monthArrow {
   border-radius: 50%;
@@ -170,19 +179,21 @@
   transform: translateX(-50%);
 }
 
-.Calendar__monthYear.-shownAnimated { animation: var(--animation-duration) fadeTextToCenter forwards; }
+.Calendar__monthYear.-shownAnimated {
+  animation: var(--animation-duration) fadeTextToCenter forwards;
+}
 
 .Calendar__weekDays {
   display: flex;
   justify-content: space-between;
   color: var(--cl-color-disabled);
   font-size: 1.2em;
-  margin-bottom: 1.60em;
+  margin-bottom: 1.6em;
   padding: 0 2em;
   width: 25em;
 }
 
-.Calendar__weekDay  {
+.Calendar__weekDay {
   display: block;
   width: calc(100% / 7);
   text-align: center;
@@ -212,7 +223,6 @@
 .Calendar__section.-hiddenPrevious {
   opacity: 0.5;
   transform: translateX(100%);
-
 }
 
 .Calendar__section.-hiddenNext {
@@ -226,7 +236,9 @@
   transform: translateX(0);
 }
 
-.Calendar__section.-shownAnimated { animation: var(--animation-duration) FadeContentToCenter forwards; }
+.Calendar__section.-shownAnimated {
+  animation: var(--animation-duration) FadeContentToCenter forwards;
+}
 
 .Calendar__day {
   display: block;
@@ -246,7 +258,6 @@
   color: var(--cl-color-black);
   border-color: transparent;
 }
-
 
 .Calendar__day.-selected,
 .Calendar__day.-selectedStart,
@@ -280,7 +291,9 @@
   background: transparent !important;
   cursor: default !important;
 }
-.Calendar__day.-selected { border-radius: 50%; }
+.Calendar__day.-selected {
+  border-radius: 50%;
+}
 .Calendar__day.-today:not(.-selectedStart):not(.-selectedEnd):not(.-selectedBetween) {
   font-weight: 600;
   color: var(--cl-color-black);
@@ -289,7 +302,7 @@
 }
 
 .Calendar__day.-today:not(.-selectedStart):not(.-selectedEnd):not(.-selectedBetween)::after {
-  content: "";
+  content: '';
   position: absolute;
   bottom: 0.2em;
   display: block;
